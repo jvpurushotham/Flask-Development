@@ -1,10 +1,10 @@
-from flask import Blueprint, request, redirect, url_for
+from flask import Blueprint, request, redirect, url_for, render_template
 
 employee_bp = Blueprint("employee", __name__)
 
-@employee_bp.route("/employee_home")
-def employee_list():
-    return "Employee List"
+# @employee_bp.route("/employee_home")
+# def employee_list():
+#     return "Employee List"
 
 @employee_bp.route("/employee/add")
 def add_employee():
@@ -38,3 +38,37 @@ def displaySpecific():
 @employee_bp.route("/employeeDepartment")
 def gotodept():
     return redirect(url_for("department.departmentHome"))
+
+
+# request 
+
+# get and post
+
+@employee_bp.route("/employee/register", methods=["POST"])
+def register_employee():
+    data = request.get_json();
+
+    name = data["name"]
+    department = data["department"]
+    salary = data["salary"]
+
+    return f"Name : {name} Deparment : {department} Salary : {salary}"
+
+@employee_bp.route("/employee/list")
+def employee_list():
+    employees = [
+        {
+            "name" : "amit",
+            "salary" : 40000
+        },
+        {
+            "name" : "vijay",
+            "salary" : 40000
+        },
+        {
+            "name" : "aman",
+            "salary" : 40000
+        }
+    ]
+
+    return render_template("employee.html", employees = employees)
