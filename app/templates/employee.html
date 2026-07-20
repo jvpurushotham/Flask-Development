@@ -13,8 +13,58 @@
         {% endfor %}
     </table> -->
 
-<a href="/employee/add" class="btn btn-primary mx-3 my-3">Add Employee</a>
+<div class="d-flex align-items-center gap-3 flex-wrap my-3">
+  <!-- Add employees -->
+  <a href="/employee/add" class="btn btn-primary mx-3 my-3">Add Employee</a>
 
+  <!-- searching -->
+  <form method="GET">
+
+      <input
+          type="text"
+          name="search"
+          placeholder="Search employee">
+
+      <button>Search</button>
+
+  </form>
+
+  <!-- Filtering -->
+  <form>
+
+  <select name="department">
+
+  <option value="">All</option>
+  <option value="HR">HR</option>
+  <option value="IT">IT</option>
+  <option value="Sales">Sales</option>
+
+  </select>
+
+  <input
+  type="number"
+  name="salary"
+  placeholder="Minimum Salary">
+
+  <button>Filter</button>
+
+  </form>
+
+  <!-- Sorting -->
+  <a href="?sort=name&order=asc">
+  Sort Name ↑
+  </a>
+
+  <a href="?sort=name&order=desc">
+  Sort Name ↓
+  </a>
+
+  <a href="?sort=salary&order=desc">
+  Highest Salary
+  </a>
+</div>
+
+<!-- Employee list -->
 <table class="table table-hover mx-auto table-bordered">
   <thead class="table-dark">
     <tr>
@@ -26,7 +76,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for emp in employees %}
+    {% for emp in employees.items %}
     <tr>
       <td>{{emp.name}}</td>
       <td>{{emp.department}}</td>
@@ -42,5 +92,17 @@
     {% endfor %}
   </tbody>
 </table>
+
+
+<!-- Pagination -->
+{% if employees.has_prev %}
+<a href="?page={{ employees.prev_num }}">Previous</a>
+{% endif %}
+
+Page {{ employees.page }} of {{ employees.pages }}
+
+{% if employees.has_next %}
+<a href="?page={{ employees.next_num }}">Next</a>
+{% endif %}
 
 {% endblock %}
