@@ -4,7 +4,7 @@
 class Config:
     SECRET_KEY = "sha256"
 
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:12345@localhost:3306/employee_db"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://user:password@localhost:3306/db_name"
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
